@@ -17,14 +17,10 @@ const generateRandomQuote = (buttonIndex) => {
             quote = skelQuotesThree[generateRandomNumber(skelQuotesThree.length)]
             break;
     }
-
     showQuoteAlert(quote)
 }
 
 const generateRandomNumber = skelQuotesLength =>  Math.floor((Math.random() * skelQuotesLength))
-   
-
-
 const showQuoteAlert = quote => alert(quote)
 
 
