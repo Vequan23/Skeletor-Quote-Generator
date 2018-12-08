@@ -1,27 +1,51 @@
+const skelQuote = (options = {}) => {
+  const defaults = {
+    buttonIndex: null,
+    buttonEl: null
+  };
 
-const skelQuote = (buttonEl, buttonIndex) => {
-    buttonEl.addEventListener('click', generateRandomQuote.bind(this, buttonIndex))
-}
+  const settings = { ...defaults, ...options };
 
-const generateRandomQuote = (buttonIndex) => {
-    let quote
+  const init = () => {
+    const settingsAreNotNull = checkIfSettingsAreNotNull();
 
-    switch(buttonIndex) {
-        case 0:
-            quote = skelQuotesOne[generateRandomNumber(skelQuotesOne.length)]
-            break;
-        case 1:
-            quote = skelQuotesTwo[generateRandomNumber(skelQuotesTwo.length)]
-            break;
-        case 2:
-            quote = skelQuotesThree[generateRandomNumber(skelQuotesThree.length)]
-            break;
+    if (settingsAreNotNull) {
+      bindEvents();
+    } else {
+      console.log("error");
     }
-    showQuoteAlert(quote)
-}
+  };
 
-const generateRandomNumber = skelQuotesLength =>  Math.floor((Math.random() * skelQuotesLength))
-const showQuoteAlert = quote => alert(quote)
+  const checkIfSettingsAreNotNull = () => {
+    if (settings.buttonIndex !== null && settings.buttonEl !== null) {
+      return true
+    }
+  };
 
+  const bindEvents = () => {
+    settings.buttonEl.addEventListener("click", generateRandomQuote);
+  };
 
-export default skelQuote
+  const generateRandomQuote = ({ buttonIndex = settings.buttonIndex }) => {
+    let quote;
+    switch (buttonIndex) {
+      case 0:
+        quote = skelQuotesOne[generateRandomNumber(skelQuotesOne.length)];
+        break;
+      case 1:
+        quote = skelQuotesTwo[generateRandomNumber(skelQuotesTwo.length)];
+        break;
+      case 2:
+        quote = skelQuotesThree[generateRandomNumber(skelQuotesThree.length)];
+        break;
+    }
+    showQuoteAlert(quote);
+  };
+
+  const generateRandomNumber = skelQuotesLength => Math.floor(Math.random() * skelQuotesLength);
+  const showQuoteAlert = quote => alert(quote);
+
+  init();
+};
+
+export default skelQuote;
